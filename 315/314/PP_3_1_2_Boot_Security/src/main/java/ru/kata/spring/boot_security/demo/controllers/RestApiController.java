@@ -35,7 +35,9 @@ public class RestApiController {
     @PostMapping(value = "/admin")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         userService.saveUser(user);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+//        return new ResponseEntity<>(HttpStatus.CREATED);
+        return ResponseEntity.ok(user);
+
     }
 
     @PutMapping("/admin")

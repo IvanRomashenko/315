@@ -24,7 +24,8 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.LAZY)
+//    @ManyToMany(cascade = CascadeType.MERGE)
     @Fetch(FetchMode.JOIN)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -50,7 +51,7 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-      public String getUsername() {
+    public String getUsername() {
         return username;
     }
 
@@ -99,4 +100,4 @@ public class User implements UserDetails {
         return true;
     }
 
-  }
+}

@@ -1,7 +1,7 @@
 /*
 Скрипт заполняет таблицу все поля в navbar и таблицу About User для /admin и /user
  */
-const url = "api/user";
+const url = "http://localhost:8080/api/user";
 $(async function () {
     await loadUser();
 });

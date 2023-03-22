@@ -9,14 +9,12 @@ async function newUser() {
             roles.forEach(role => {
                 let element = document.createElement("option");
                 element.text = role.role.replace('ROLE_', '');
+                // element.text = role.name.substring(5);
                 element.value = role.id;
                 $('#rolesNewUser')[0].appendChild(element);
             })
         })
-
     const formAddNewUser = document.forms["formAddNewUser"];
-
-
 
     formAddNewUser.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -24,9 +22,10 @@ async function newUser() {
         for (let i = 0; i < formAddNewUser.roles.options.length; i++) {
             if (formAddNewUser.roles.options[i].selected) rolesNewUser.push({
                 id: formAddNewUser.roles.options[i].value,
-                name: formAddNewUser.roles.options[i].name
+                name: formAddNewUser.roles.options[i].text
             })
         }
+       
         fetch("http://localhost:8080/api/admin", {
             method: 'POST',
             headers: {
@@ -37,15 +36,15 @@ async function newUser() {
                 password: formAddNewUser.password.value,
                 roles: rolesNewUser
             })
+
         })
             .then(() => {
-            formAddNewUser.reset();
-            allUsers();
-            $('#allUsersTable').click();
-        })
+                formAddNewUser.reset();
+                allUsers();
+                $('#allUsersTable').click();
+            })
             .catch((error) => {
                 alert(error);
             })
     })
-
 }
